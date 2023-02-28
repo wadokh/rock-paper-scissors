@@ -7,7 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-
+    <button class="play rock">rock</button>
+    <button class="play paper">paper</button>
+    <button class="play scissors">scissors</button>
+    <div id="scoreboard"></div>
+    <div id="result"></div>
 </body>
 <script>
     let computerChoice;
@@ -26,8 +30,26 @@
     }
     let playerSelection;
     let computerSelection;
+
+    const btns=document.querySelectorAll('.play');
+    btns.forEach(btn=>{
+        btn.addEventListener('click', function getPlayerSelection(event){
+            let hasChoice ;
+            if(hasChoice= event.target.matches('.rock')){
+                playerSelection='rock'
+            }
+            else if(hasChoice= event.target.matches('.paper')){
+                playerSelection='paper'
+            }
+            else if(hasChoice= event.target.matches('.scissors')){
+                playerSelection='scissors'
+            }
+
+        })
+    })
+
     function playRound(playerSelection, computerSelection) {
-        playerSelection = prompt("rock,paper or scissors?");
+        // playerSelection = prompt("rock,paper or scissors?");
         computerSelection = getComputerChoice();
         let playerChoice=playerSelection.toLowerCase();
         if (playerChoice===computerSelection){
@@ -44,24 +66,27 @@
 
   // your code here!
 }
- 
-
-
+ let resultshow=document.getElementById('result');
+let playerscore=0;
+let computerscore=0;
+let scoreboard=document.getElementById('scoreboard');
 function game(){
-    let playerscore=0;
-    let computerscore=0;
-    for (let i = 0; i < 5; i++) {
+
         let round=playRound(playerSelection, computerSelection);
-        console.log(round);
+        resultshow.innerHTML=round;
         if (round.includes("win")){playerscore++;}
         else if (round.includes("lose")){computerscore++;};
 
    // your code here!
+
+if (playerscore>computerscore){scoreboard.innerHTML=`scorecard: ${playerscore} - ${computerscore}`}
+else if (playerscore<computerscore){scoreboard.innerHTML=` scorecard: ${playerscore} - ${computerscore}`}
+else {scoreboard.innerHTML=` scorecard: ${playerscore} - ${computerscore}`}
 }
-if (playerscore>computerscore){console.log(`you beat the computer. scorecard: ${playerscore} - ${computerscore}`)}
-else if (playerscore<computerscore){console.log(`you lost to the computer. scorecard: ${playerscore} - ${computerscore}`)}
-else {console.log(`its a draw both the teams are even. scorecard: ${playerscore} - ${computerscore}`)}
-}
-game();
+btns.forEach(btn=>{
+        btn.addEventListener('click', game)
+        });
+
+
 </script>
 </html>
